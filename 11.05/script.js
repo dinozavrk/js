@@ -1,7 +1,6 @@
 const postsContainer = document.getElementById('postsContainer');
 const userSelect = document.getElementById('userSelect');
 
-// Заготовки для русских текстов (так как API отдает только английский)
 const russianTitles = [
     "Заметка о программировании", "Новости технологий", "Как выучить JavaScript", 
     "Путешествие по миру", "Секреты продуктивности", "Обзор инструментов разработчика",
@@ -26,24 +25,22 @@ function makePostRussian(post) {
     };
 }
 
-// 1. Загрузка пользователей для SELECT
+//  Загрузка пользователей для SELECT
 async function loadUsers() {
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        const users = await response.json();
 
-        users.forEach(user => {
-            const option = document.createElement('option');
-            option.value = user.id;
-            option.textContent = user.name;
-            userSelect.appendChild(option);
-        });
-    } catch (error) {
-        console.error('Ошибка загрузки пользователей:', error);
-    }
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+    const users = await response.json();
+
+    users.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.id;
+        option.textContent = user.name;
+        userSelect.appendChild(option);
+    })
+    
 }
 
-// 2 & 3. Загрузка постов (с учетом фильтра по userId)
+//  Загрузка постов (с учетом фильтра по userId)
 async function loadPosts(userId = '') {
     postsContainer.innerHTML = '<p>Загрузка...</p>';
     
@@ -52,7 +49,7 @@ async function loadPosts(userId = '') {
         ? `https://jsonplaceholder.typicode.com/posts?userId=${userId}` 
         : 'https://jsonplaceholder.typicode.com/posts';
 
-    try {
+    
         const response = await fetch(url);
         const posts = await response.json();
 
@@ -60,9 +57,7 @@ async function loadPosts(userId = '') {
         const translatedPosts = posts.map(makePostRussian);
         
         renderPosts(translatedPosts);
-    } catch (error) {
-        postsContainer.innerHTML = '<p>Произошла ошибка при загрузке данных.</p>';
-    }
+
 }
 
 // Функция отрисовки карточек

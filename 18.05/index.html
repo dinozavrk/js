@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Менеджер каталога товаров</title>
+    <link rel="stylesheet" href="stule.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Каталог товаров</h1>
+
+        <!-- Секция формы (добавление / редактирование) -->
+        <div class="form-card">
+            <div class="form-title" id="formTitle">➕ Добавить товар</div>
+            <div class="form-group">
+                <label>Название товара</label>
+                <input type="text" id="productName" placeholder="Например: Ноутбук Pro" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Цена (₽)</label>
+                <input type="number" id="productPrice" placeholder="Цена" step="1" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Категория</label>
+                <input type="text" id="productCategory" placeholder="Категория" autocomplete="off">
+            </div>
+            <div class="button-group">
+                <button id="submitBtn" class="primary">📦 Добавить товар</button>
+                <button id="cancelEditBtn" class="secondary" style="display: none;">❌ Отменить</button>
+            </div>
+        </div>
+
+        <!-- Список товаров -->
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;">
+            <h2 style="font-size: 1.3rem; font-weight: 500;">Все товары</h2>
+            <span id="productsCount" style="background: #e2e8f0; padding: 4px 10px; border-radius: 40px; font-size: 0.8rem;">0</span>
+        </div>
+        <div id="productsContainer" class="products-grid">
+            <!-- Карточки товаров будут добавлены через JS -->
+            <div class="loading-state">Загрузка товаров...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

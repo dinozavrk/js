@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body {
+    background: #f1f5f9;
+    padding: 2rem 1.5rem;
+    color: #0f172a;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Заголовок */
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #1e293b, #2d3a4f);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    letter-spacing: -0.3px;
+}
+
+/* Секция формы */
+.form-card {
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.form-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-title::before {
+    content: "📦";
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #334155;
+}
+
+input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 18px;
+    font-size: 1rem;
+    transition: 0.2s;
+    background: #fefefe;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 40px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+button i {
+    font-style: normal;
+    font-weight: 600;
+}
+
+button.primary {
+    background: #2563eb;
+}
+
+button.primary:hover {
+    background: #1d4ed8;
+    transform: scale(0.98);
+}
+
+button.secondary {
+    background: #475569;
+}
+
+button.secondary:hover {
+    background: #334155;
+}
+
+button.danger {
+    background: #dc2626;
+}
+
+button.danger:hover {
+    background: #b91c1c;
+}
+
+button.warning {
+    background: #eab308;
+    color: #0f172a;
+}
+
+button.warning:hover {
+    background: #ca8a04;
+    color: white;
+}
+
+/* Сетка товаров */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 24px;
+    padding: 1.3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(2px);
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+}
+
+.product-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #0f172a;
+    word-break: break-word;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #059669;
+    margin: 0.4rem 0;
+}
+
+.product-category {
+    display: inline-block;
+    background: #eef2ff;
+    padding: 0.2rem 0.8rem;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #1e40af;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+.card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.card-actions button {
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+}
+
+.loading-state {
+    text-align: center;
+    padding: 3rem;
+    color: #64748b;
+    font-size: 1rem;
+    grid-column: 1 / -1;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    background: white;
+    border-radius: 32px;
+    grid-column: 1 / -1;
+}
