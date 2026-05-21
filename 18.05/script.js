@@ -1,5 +1,4 @@
 const API = 'https://6a09a8f2e7e3f433d4834d37.mockapi.io/product';
-
 const container = document.getElementById('productsContainer');
 const [nameInp, priceInp, catInp] = ['productName', 'productPrice', 'productCategory'].map(id => document.getElementById(id));
 const submitBtn = document.getElementById('submitBtn');
@@ -12,13 +11,13 @@ let editId = null;
 const show = (html) => container.innerHTML = html;
 const updateCount = () => countSpan.textContent = document.querySelectorAll('.product-card').length;
 
-// === GET: загрузка товаров ===
 async function loadProducts() {
     show('<div class="loading-state">⏳ Загрузка...</div>');
+    try {
         const res = await fetch(API);
         if (!res.ok) throw new Error('Ошибка загрузки');
         const products = await res.json();
-        if (!products.length) return show('<div class="empty-state">📭 Товаров пока нет</div>');
+        if (!products.length) return show('<div class="empty-state"> Товаров пока нет</div>');
         container.innerHTML = products.map(p => `
             <div class="product-card" data-id="${p.id}">
                 <div class="product-name">${escapeHtml(p.name)}</div>
@@ -31,10 +30,11 @@ async function loadProducts() {
             </div>
         `).join('');
         updateCount();
-    } 
+    } catch (err) {
+        show(`<div class="empty-state"> Ошибка: ${err.message}</div>`);
+    }
+}
 
-
-// === POST: добавление ===
 async function addProduct(data) {
     const res = await fetch(API, {
         method: 'POST',
@@ -45,7 +45,6 @@ async function addProduct(data) {
     return res.json();
 }
 
-// === PUT: обновление ===
 async function updateProduct(id, data) {
     const res = await fetch(`${API}/${id}`, {
         method: 'PUT',
@@ -56,20 +55,18 @@ async function updateProduct(id, data) {
     return res.json();
 }
 
-// === DELETE: удаление ===
 async function deleteProduct(id) {
     if (!confirm('Удалить товар?')) return;
     try {
         await fetch(`${API}/${id}`, {method: 'DELETE'});
         document.querySelector(`.product-card[data-id="${id}"]`)?.remove();
-        if (!container.querySelector('.product-card')) show('<div class="empty-state">📭 Товаров пока нет</div>');
+        if (!container.querySelector('.product-card')) show('<div class="empty-state"> Товаров пока нет</div>');
         updateCount();
     } catch (err) {
         alert('Ошибка удаления');
     }
 }
 
-// === Редактирование: заполнить форму ===
 window.editProduct = async (id) => {
     const res = await fetch(`${API}/${id}`);
     const product = await res.json();
@@ -83,7 +80,6 @@ window.editProduct = async (id) => {
     document.querySelector('.form-card').scrollIntoView({behavior: 'smooth'});
 };
 
-// === Сброс формы ===
 function resetForm() {
     nameInp.value = priceInp.value = catInp.value = '';
     editId = null;
@@ -104,6 +100,7 @@ submitBtn.onclick = async () => {
         return;
     }
     
+    try {
         if (editId) {
             await updateProduct(editId, {name, price, category});
         } else {
@@ -111,8 +108,18 @@ submitBtn.onclick = async () => {
         }
         resetForm();
         await loadProducts();
-    } 
-    
+    } catch (err) {
+        alert(err.message);
+    }
+};
 
+function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
 
 loadProducts();
